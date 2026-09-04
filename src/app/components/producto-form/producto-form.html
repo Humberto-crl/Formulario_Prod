@@ -1,0 +1,90 @@
+<h2>Registro de Productos</h2>
+
+<form [formGroup]="productoForm" (ngSubmit)="enviarProducto()">
+
+    <!-- Nombre -->
+    <label for="nombre">Nombre</label>
+    <input
+        id="nombre"
+        type="text"
+        formControlName="nombre">
+        
+    <div *ngIf="productoForm.get('nombre')?.touched && productoForm.get('nombre')?.hasError('required')">
+        El nombre es obligatorio.
+    </div>
+
+    <div *ngIf="productoForm.get('nombre')?.touched && productoForm.get('nombre')?.hasError('minlength')">
+        El nombre debe tener al menos 3 caracteres.
+    </div>
+
+    <!-- Descripcion -->
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" formControlName="descripcion"></textarea>
+
+    <div *ngIf="productoForm.get('descripcion')?.touched && productoForm.get('descripcion')?.hasError('required')">
+        La descripcion es obligtoria
+    </div>
+
+    <div *ngIf="productoForm.get('descripcion')?.touched && productoForm.get('descripcion')?.hasError('minlength')">
+        La descripcion debe tener minimo 20
+    </div>
+
+    <!-- Precio -->
+    <label for="precio">Precio</label>
+    <input
+        id="precio"
+        type="number"
+        formControlName="precio">
+
+    <div *ngIf="productoForm.get('precio')?.touched && productoForm.get('precio')?.hasError('required')">
+        Debe tener un precio obligatorio
+    </div>
+
+    <div *ngIf="productoForm.get('precio')?.touched && productoForm.get('precio')?.hasError('min')">
+        Deber ser mayor a cero
+    </div>
+
+    <!-- Categoria -->
+    <label for="categoria">Categoría</label>
+    <select
+        id="categoria"
+        formControlName="categoria">
+
+    <option value="">Seleccione una categoría</option>
+
+    <option
+    *ngFor="let categoria of categorias"
+    [value]="categoria">
+        {{ categoria }}
+    </option>
+
+    </select>
+
+    <div *ngIf="productoForm.get('categoria')?.touched && productoForm.get('categoria')?.hasError('required')">
+        Debe ser obligtoria
+    </div>
+
+    <!-- Stock-->
+    <label for="stock">Stock</label>
+    <input
+        id="stock"
+        type="number"
+        formControlName="stock">
+
+    <div *ngIf="productoForm.get('stock')?.touched && productoForm.get('stock')?.hasError('required')">
+        Debe ser obligatorio
+    </div>
+
+    <div *ngIf="productoForm.get('stock')?.touched && productoForm.get('stock')?.hasError('min')">
+        Tiene que ser mayor que cero
+    </div>
+
+    <button type="submit" [disabled]="productoForm.invalid">
+        Guardar Producto
+    </button>
+
+    <div *ngIf="mensajeExito">
+        Producto registrado correctamente
+    </div>
+
+</form>
